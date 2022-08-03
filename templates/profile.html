@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    body {
+        background-color: rgb(232, 246, 248);
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row justify-items-center">
+        <div class="col-md-4 mt-5">
+            {% include "notify.html" %}
+            <div class="card">
+
+
+                <div class="card-body ">
+                    <div class="d-flex p-5 flex-row align-items-center justify-content-between">
+                        <img class="img-thumbnail rounded-circle" src="{{user.avatar(128)}}" alt="{{user.username}}">
+                        <h4 class="card-title ">Username: {{user.username}}</h4>
+                    </div>
+                    {% if user.about_me %}<p class="card-text">{{ user.about_me }}</p>{% endif %}
+                    {% if user.last_seen %}<p class="lead">Last seen on: {{ user.last_seen }}</p>{% endif %}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="{{ url_for('edit_profile') }}">Edit your profile <i
+                                class="fas fa-arrow-right    "></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Your Investments</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invest in investments %}
+                            <tr>
+                                <td><i class="fa fa-globe" aria-hidden="true"></i> {{ invest.stock }}</td>
+                                <td><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> {{ invest.price }}</td>
+                                <td>{{ invest.transaction_on }}</td>
+                                <td>{{invest.last_action}} </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

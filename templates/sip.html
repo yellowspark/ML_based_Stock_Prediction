@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    body {
+        background-color: rgb(243, 239, 237);
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="content-wrapper w-100">
+
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <h3>SPI investment planner for you</h3>
+    </nav>
+
+    <!-- End of Topbar -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="form-group" style="text-align:center;" method="POST">
+                    <div class="card shadow">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Fill the form for SIP</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(60, 63, 222);">
+                                Amount of Investment
+                            </div>
+                            <input class="form-control mx-auto" type="number" name="amount" id="amount" min="500"
+                                max="9999999" step="500" style="width: 90%;" value="{{amt}}">
+
+                            <hr class="sidebar-divider">
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(60, 63, 222);">
+                                Tenure in Years
+                            </div>
+
+                            <select class="selectpicker " data-live-search="true" name="tenure">
+                                {% for i in range(1, 50) %}
+                                <option>
+                                    {{ i }}
+                                </option>
+                                {% endfor %}
+                            </select>
+
+
+
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(60, 63, 222);">
+                                Rate of investment
+                            </div>
+                            <input class="form-control mx-auto" type="number" name="interest" id="interest" min=".1"
+                                max="200.00" step=".1" style="width: 90%;" value="{{rate}}">
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Calculate Maturity Amount" class="btn btn-success"
+                                style="color:white;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            {% if sip %}
+            <div class="col-sm-12">
+                <div class="card shadow">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
+                        <h2 class="m-0 font-weight-bold text-primary ">
+                            SIP Maturity Amount = Rs.{{sip['Amount @ Maturity']}} approx.
+                        </h2>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div class="card-title">Breakdown of Rs.{{amt}} for {{tenure}} Years @ {{rate}}% </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Month</th>
+                                <th>Amount</th>
+                            </thead>
+                            <tbody>
+
+                                {% for k,v in sip['Amount every month'].items() %}
+                                <tr>
+                                    <td>{{ k }}</td>
+                                    <td>{{ v }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="card-text">Plan out an SIP investment with us</p>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}

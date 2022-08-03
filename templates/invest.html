@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- Topbar Search -->
+            <h3>Stock Investment - Buy/Sell stocks</h3>
+
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+
+        <div class="container-fluid">
+            {% include "notify.html" %}
+            <div class="row">
+                <div class="col-xl-12 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Purchase Stock for {{s}} </h6>
+                        </div>
+                        <form method="post" class="card-body">
+                            <label for="Buy">Price</label>
+                            <input type="hidden" name="stock" value="{{s}}">
+                            <input type="number" name="price" id="Buy" class="form-control-sm" min="100" max="10000"
+                                value="0">
+                            <button class="btn btn-success px-5 mx-3">
+                                Buy Stock
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card shadow mb-4">
+
+                        <form method="POST" action="/sell" class="card-header py-3 ">
+                            <h6 class="m-0 font-weight-bold text-primary">Sell Stock for {{s}} </h6>
+                            <p class="lead">
+                                You have invested Stock for Rs.{{einvest.price}}
+                            </p>
+                            <input type="hidden" name="stock" value="{{s}}">
+                            Rs.<input type="number" name="price" id="Sell" class="form-control-sm" min="100" max="10000"
+                                value="{{einvest.price}}">
+                            <button class="btn btn-danger px-5 mx-3">
+                                Sell Stocks
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Final Yr Project</span>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock js %}

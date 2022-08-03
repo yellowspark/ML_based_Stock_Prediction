@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    body {
+        background-color: rgb(241, 243, 237);
+    }
+</style>
+{% endblock %}
+{% block body %}
+<div class="content-wrapper w-100">
+
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <h3>EMI planner</h3>
+    </nav>
+
+    <!-- End of Topbar -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="form-group m-3" style="text-align:center;" method="POST">
+                    <div class="card shadow">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Fill the form for SIP</h6>
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(222, 60, 109);">
+                                <b> Product Price in Rs.</b>
+                            </div>
+                            <input class="form-control mx-auto" type="number" name="amount" id="amount" min="1000"
+                                max="9999999" step="100" style="width: 90%;" value="{{amt}}">
+
+
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(222, 60, 109);">
+                                <b> Tenure in Years</b>
+                            </div>
+                            <input class="form-control mx-auto" type="number" name="tenure" id="tenure" min="0" max="10"
+                                step="1" style="width: 90%;" value="{{tenure}}">
+
+                            <div class="sidebar-brand-text mx-3 mb-3" style="color:rgb(222, 60, 109);">
+                                <b>Interest Rate of Bank</b>
+                            </div>
+                            <input class="form-control mx-auto" type="number" name="interest" id="interest" min=".1"
+                                max="200.00" step=".1" style="width: 90%;" value="{{rate}}">
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Calculate EMI" class="btn btn-danger"
+                                style="color:rgb(255, 255, 255);">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% if emi %}
+            <div class="col-sm-12 m-3">
+                <div class="card shadow">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between ">
+                        <h2 class="m-0 font-weight-bold text-primary ">
+                            you will need to pay EMI of Rs.{{emi['EMI']}} approx.
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <p class="lead">
+                                total repayable amount = Rs.{{emi['Total Repayment Amount']}}
+                            </p>
+                            <p class="lead">
+                                Interest Amount = Rs.{{emi['Interest Amount']}}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% else %}
+            <div class="card mx-auto">
+                <div class="card-body">
+                    <p class="card-text">GET the EMI of the product you want</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}

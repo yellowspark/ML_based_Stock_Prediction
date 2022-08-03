@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <!-- Topbar Search -->
+            <h3>AI Based Stock Prediction</h3>
+
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        {% if show_results == "false" %}
+        <p style="text-align:center;margin-top:15%">
+            <i class="fas fa-cogs fa-5x" style="color:#1c5d3c;"></i>
+            <br />
+            <br />
+            Start by Select the stock to train with AI Algorithms
+        </p>
+        <div class="container-fluid" style="display:none;">
+
+            {% else %}
+            <div class="container-fluid">
+                {% endif %}
+
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-12 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center ">
+                                <h6 class="m-0 font-weight-bold text-primary">Stock Buying recommendation</h6>
+                                <a href="/invest?c=b&s={{sname}}" class="btn btn-success px-5 mx-3">
+                                    Buy Stock
+                                    {% if r %}
+                                    (recommeded)
+                                    {% endif %}
+
+                                </a>
+                                <a href="/invest?c=s&s={{sname}}" class="btn btn-danger px-5 mx-3">
+                                    Sell Stock
+                                    {% if not r %}
+                                    (recommeded)
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- Area Chart -->
+                    <div class="col-xl-12 col-lg-7">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Decision Boundaries</h6>
+
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Model Evaluation</h1>
+                        <p class="mb-4">The following table shows the Mean Squared Error (MSE) for the different
+                            models. The lower the value, the better it is.</p>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Test Evaluation</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Model</th>
+                                                <th>Mean Squared Error (MSE)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in range(0, len2 - 1) %}
+                                            <tr>
+                                                <td>{{ all_test_evaluations[i][0] }}</td>
+                                                <td>{{ all_test_evaluations[i][1] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Prediction Results</h1>
+                        <p class="mb-4">The following table shows the original opening value of stock along with
+                            its
+                            predicted opening value on <br>Date: {{ prediction_date }}.</p>
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Predictions</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Model</th>
+                                                <th>Opening Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in range(0, len2) %}
+                                            <tr>
+                                                <td>{{ all_prediction_data[i][0] }}</td>
+                                                <td>{{ all_prediction_data[i][1] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Final Yr Project</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    {% endblock %}
+
+    {% block js %}
+    {% include 'script.html' %}
+    {% endblock js %}
